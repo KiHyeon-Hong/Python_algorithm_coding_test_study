@@ -2,13 +2,25 @@ import sys
 input = sys.stdin.readline
 
 N = int(input())
-C = []
-
-for i in map(int, input().split()):
-  C.append(i)
+req = list(map(int, input().split()))
 M = int(input())
 
-left = 1
-right = max(C)
-mid = int(left + right)
+lo = 0
+hi = max(req)
+mid = (lo + hi) // 2
 
+ans = 0
+
+def is_possible(mid):
+  return sum(min(r, mid) for r in req) <= M
+
+while lo <= hi:
+  if is_possible(mid):
+    lo = mid + 1
+    ans = mid
+  else:
+    hi = mid - 1
+
+  mid = (lo + hi) // 2
+
+print(ans)
